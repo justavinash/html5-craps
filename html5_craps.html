@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <title>HTML5 - Craps</title>
+    <script>
+      var ctx;
+      start1x=50; start1y=50;
+      start2x=150; start2y=50;
+      sizex=70; sizey=74;
+
+      var point;
+      var firstturn=true;
+
+      function drawCenter(x,y){
+        ctx.beginPath();
+        ctx.arc(x + (sizex/2),y + (sizey/2),5,0,2*Math.PI,false);
+        ctx.closePath();
+        ctx.fill();
+      }
+      function draw2Back(x,y){
+        ctx.beginPath();
+        ctx.arc(x+(sizex/4),y + (sizey/4),5,0,2*Math.PI,false);
+        ctx.arc(x+(sizex*3/4),y + (sizey*3/4),5,0,2*Math.PI,false);
+        ctx.closePath();
+        ctx.fill();
+      }
+      function draw2Front(x,y){
+        ctx.beginPath();
+        ctx.arc(x+(sizex*3/4),y+(sizey/4),5,0,2*Math.PI,false);
+        ctx.arc(x+(sizex/4),y+(sizey*3/4),5,0,2*Math.PI,false);
+        ctx.closePath();
+        ctx.fill();
+      }
+      function draw2Middle(x,y){
+        ctx.beginPath();
+        ctx.arc(x+(sizex/4),y+(sizey/2),5,0,2*Math.PI,false);
+        ctx.arc(x+(sizex*3/4),y+(sizey/2),5,0,2*Math.PI,false);
+        ctx.closePath();
+        ctx.fill();
+      }
+      function throwDice(){
+        ctx = document.getElementById("canvas").getContext("2d");
+        ctx.lineWidth = "3";
+        ctx.clearRect(start1x,start1y,sizex,sizey);
+        ctx.clearRect(start2x,start2y,sizex,sizey);
+        ctx.strokeRect(start1x,start1y,sizex,sizey);
+        ctx.strokeRect(start2x,start2y,sizex,sizey);
+
+        ctx.fillStyle = "#009966";
+        var die1 = 1 + Math.floor(Math.random()*6);
+        var die2 = 1 + Math.floor(Math.random()*6);
+        sum = die1 + die2;
+        drawFace(start1x,start1y,die1);
+        drawFace(start2x,start2y,die2);
+        if(firstturn==true){
+          switch(sum){
+            case 7:
+            case 11:
+              document.getElementById("stage").value="Play Again"
+              document.getElementById("point").value=sum;
+              document.getElementById("outcome").value="You Won!";
+              firstturn=true;
+              break;
+            case 2:
+            case 3:
+            case 12:
+              document.getElementById("stage").value="Play Again"
+              document.getElementById("point").value=sum;
+              document.getElementById("outcome").value="You Lose!";
+              firstturn=true;
+              break;
+            case 4:
+            case 5:
+            case 6:
+            case 8:
+            case 9:
+            case 10:
+              point=sum;
+              document.getElementById("stage").value="Follow-up throw needed"
+              document.getElementById("point").value=point;
+              document.getElementById("outcome").value="";
+              firstturn=false;
+          }
+        }
+        else{
+          switch(sum){
+            case 7:
+              document.getElementById("stage").value="Play Again"
+              document.getElementById("point").value=sum;
+              document.getElementById("outcome").value="You Lose!";
+              firstturn=true;
+              break;
+            case point:
+              document.getElementById("stage").value="Play Again"
+              document.getElementById("point").value=sum;
+              document.getElementById("outcome").value="You Won!";
+              firstturn=true;
+              break;
+            default:
+              point=sum;
+              document.getElementById("stage").value="Follow-up throw needed"
+              document.getElementById("point").value=point;
+              document.getElementById("outcome").value="";
+              firstturn=false;
+          }
+        }
+      }
+      function drawFace(x,y,n){
+        switch(n){
+          case 1:
+            drawCenter(x,y);
+            break;
+          case 2:
+            draw2Back(x,y);
+            break;
+          case 3:
+            draw2Back(x,y);
+            drawCenter(x,y);
+            break;
+          case 4:
+            draw2Back(x,y);
+            draw2Front(x,y);
+            break;
+          case 5:
+            draw2Back(x,y);
+            draw2Front(x,y);
+            drawCenter(x,y);
+            break;
+          case 6:
+            draw2Back(x,y);
+            draw2Front(x,y);
+            draw2Middle(x,y);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="300">
+      Your browser doesnt support the HTML5 element canvas
+    </canvas>
+    <br/>
+    <button onClick="throwDice();">Throw Dice</button><br/>
+    Stage: <input type="text" id="stage" value="First Throw" />
+    Point: <input type="text" id="point" value="" />
+    Outcome: <input type="text" id="outcome" value="" />
+  </body>
+</html>

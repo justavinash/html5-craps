@@ -1,0 +1,8 @@
+Learning the capabilities of HTML5 by following the "The Essential Guide to HTML5" and having fun along the way. In the first installment, a dice game called 'Craps' has been discussed. While much of the idea is from the book, have tried to do it myself as much as possible.
+
+Game Basics:
+  The player throws a pair of dice. If the sum of the dice thrown is either 7 or 11 then the player wins rightaway.If the player instead throws a 2, 3 or a 12 then the player loses rightaway. Any other result is recorded as a player's point and a follow up throw is required. On follow-up throws, a throw of 7 loses and a throw of the player's point wins. For anything else, the game continues with the follow up throw rules
+
+Approach:
+  - HTML5 has been used to draw the dice and the pips within in real time based on the randomizer. HTML5 rects and arcs have been used for this purpose.
+  - Javascript to maintain game state and populate the in-game message fields('Stage', 'Point' and 'Outcome')

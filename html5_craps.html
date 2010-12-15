@@ -10,32 +10,26 @@
       var point;
       var firstturn=true;
 
-      function drawCenter(x,y){
+      function drawPip(centerx,centery){
         ctx.beginPath();
-        ctx.arc(x + (sizex/2),y + (sizey/2),5,0,2*Math.PI,false);
+        ctx.arc(centerx,centery,5,0,2*Math.PI,false);
         ctx.closePath();
         ctx.fill();
+      }
+      function drawCenter(x,y){
+        drawPip(x + (sizex/2),y + (sizey/2));
       }
       function draw2Back(x,y){
-        ctx.beginPath();
-        ctx.arc(x+(sizex/4),y + (sizey/4),5,0,2*Math.PI,false);
-        ctx.arc(x+(sizex*3/4),y + (sizey*3/4),5,0,2*Math.PI,false);
-        ctx.closePath();
-        ctx.fill();
+        drawPip(x+(sizex/4),y + (sizey/4));
+        drawPip(x+(sizex*3/4),y + (sizey*3/4));
       }
       function draw2Front(x,y){
-        ctx.beginPath();
-        ctx.arc(x+(sizex*3/4),y+(sizey/4),5,0,2*Math.PI,false);
-        ctx.arc(x+(sizex/4),y+(sizey*3/4),5,0,2*Math.PI,false);
-        ctx.closePath();
-        ctx.fill();
+        drawPip(x+(sizex*3/4),y+(sizey/4));
+        drawPip(x+(sizex/4),y+(sizey*3/4));
       }
       function draw2Middle(x,y){
-        ctx.beginPath();
-        ctx.arc(x+(sizex/4),y+(sizey/2),5,0,2*Math.PI,false);
-        ctx.arc(x+(sizex*3/4),y+(sizey/2),5,0,2*Math.PI,false);
-        ctx.closePath();
-        ctx.fill();
+        drawPip(x+(sizex/4),y+(sizey/2));
+        drawPip(x+(sizex*3/4),y+(sizey/2));
       }
       function throwDice(){
         ctx = document.getElementById("canvas").getContext("2d");
